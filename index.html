@@ -18,8 +18,17 @@
   }
   .hero-card.hero-card--big h3{ font-size:1.5rem; margin-bottom:.6em; }
   .hero-card.hero-card--big p{ font-size:1.08rem; line-height:1.65; }
-  .hero-card.hero-card--big .hero-chip-row{ margin-top:22px; gap:10px; }
-  .hero-card.hero-card--big .chip{ font-size:.85rem; padding:8px 16px; }
+  .hero-card.hero-card--big .hero-chip-row{
+    margin-top:22px; gap:10px; flex-wrap:wrap;
+  }
+  .hero-card.hero-card--big .chip{
+    font-size:.85rem; padding:8px 16px;
+    white-space:nowrap; flex:0 0 auto;
+  }
+  @media (max-width:480px){
+    .hero-card.hero-card--big{ padding:32px 24px; max-width:100%; }
+    .hero-card.hero-card--big .chip{ font-size:.78rem; padding:7px 12px; letter-spacing:.02em; }
+  }
 
   /* ---- Added: reviews (Preply) ---- */
   .reviews-wrap{ max-width:1100px; margin:36px auto 0; padding:0 24px; }
@@ -35,27 +44,27 @@
   .reviews-source{ text-align:center; margin-top:18px; font-size:.85rem; opacity:.75; }
   .reviews-source a{ color:inherit; text-decoration:underline; }
 
-  /* ---- Added: gradient-orange donate/preview buttons ---- */
-  .btn-gradient-orange{
+  /* ---- Added: one shared deep-orange gradient for every primary button ---- */
+  .btn-gradient-orange,
+  .btn-gold,
+  .nav-cta.btn-primary{
     display:inline-flex; align-items:center; justify-content:center; gap:8px;
-    background:linear-gradient(135deg,#FFB347 0%,#FF7A18 55%,#E85D04 100%);
+    background:linear-gradient(135deg,#FF8A00 0%,#E85D04 45%,#A83E00 100%) !important;
     color:#fff !important; font-weight:700; border:none; border-radius:10px;
     padding:12px 18px; text-decoration:none; font-size:.92rem;
-    box-shadow:0 4px 14px rgba(232,93,4,.35); transition:transform .15s ease, box-shadow .15s ease;
+    box-shadow:0 4px 14px rgba(168,62,0,.4); transition:transform .15s ease, box-shadow .15s ease;
   }
-  .btn-gradient-orange:hover{ transform:translateY(-2px); box-shadow:0 8px 20px rgba(232,93,4,.45); }
-  .btn-gradient-blue{
-    display:inline-flex; align-items:center; justify-content:center; gap:8px;
-    background:linear-gradient(135deg,#1E5FA8 0%,#123E7A 55%,#0A2A57 100%);
-    color:#fff !important; font-weight:700; border:none; border-radius:10px;
-    padding:12px 18px; text-decoration:none; font-size:.92rem;
-    box-shadow:0 4px 14px rgba(10,42,87,.45); transition:transform .15s ease, box-shadow .15s ease;
+  .btn-gradient-orange:hover,
+  .btn-gold:hover,
+  .nav-cta.btn-primary:hover{
+    transform:translateY(-2px); box-shadow:0 8px 22px rgba(168,62,0,.55);
   }
-  .btn-gradient-blue:hover{ transform:translateY(-2px); box-shadow:0 8px 22px rgba(10,42,87,.55); }
+  .course-actions{ display:flex; flex-wrap:wrap; gap:10px; align-items:stretch; }
+  .course-actions form{ margin:0; flex:1 1 200px; display:flex; }
+  .course-actions a.btn-gradient-orange{ flex:1 1 200px; }
+  .course-actions form .btn-gradient-orange{ flex:1; width:100%; }
   .donate-block{ margin-top:16px; padding-top:16px; border-top:1px dashed rgba(0,0,0,.15); }
-  .donate-msg{ font-size:.82rem; color:var(--ink-soft); margin-bottom:10px; line-height:1.5; }
-  .donate-row{ display:flex; flex-wrap:wrap; gap:10px; }
-  .donate-row form{ margin:0; }
+  .donate-msg{ font-size:.82rem; color:var(--ink-soft); margin-bottom:0; line-height:1.5; }
 </style>
 </head>
 <body>
@@ -174,21 +183,19 @@
           </ul>
           <div class="course-price"><strong>$10</strong><span>one-time · instant PDF</span></div>
           <div class="course-actions">
-            <a class="btn-gradient-blue" href="courses/Preview_A2.pdf" target="_blank" rel="noopener">Preview (first 3 pages)</a>
+            <a class="btn-gradient-orange" href="courses/Preview_A2.pdf" target="_blank" rel="noopener">Preview (first 3 pages)</a>
+            <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+              <input type="hidden" name="cmd" value="_donations">
+              <input type="hidden" name="business" value="jobcarmen@yahoo.com">
+              <input type="hidden" name="item_name" value="Donation for English in Chapters — A2 course (min. $10)">
+              <input type="hidden" name="amount" value="10.00">
+              <input type="hidden" name="currency_code" value="USD">
+              <input type="hidden" name="no_shipping" value="1">
+              <button type="submit" class="btn-gradient-orange">💳 PayPal or Card Donation</button>
+            </form>
           </div>
           <div class="donate-block">
             <p class="donate-msg">Prefer to pay what you like? Support Carmen directly with a minimum $10 donation, then message her (or reply to your payment receipt) for the A2 PDF download.</p>
-            <div class="donate-row">
-              <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-                <input type="hidden" name="cmd" value="_donations">
-                <input type="hidden" name="business" value="jobcarmen@yahoo.com">
-                <input type="hidden" name="item_name" value="Donation for English in Chapters — A2 course (min. $10)">
-                <input type="hidden" name="amount" value="10.00">
-                <input type="hidden" name="currency_code" value="USD">
-                <input type="hidden" name="no_shipping" value="1">
-                <button type="submit" class="btn-gradient-orange">💙 PayPal Donate</button>
-              </form>
-            </div>
           </div>
         </div>
       </div>
@@ -208,21 +215,19 @@
           </ul>
           <div class="course-price"><strong>$10</strong><span>one-time · instant PDF</span></div>
           <div class="course-actions">
-            <a class="btn-gradient-blue" href="courses/Preview_B2.pdf" target="_blank" rel="noopener">Preview (first 3 pages)</a>
+            <a class="btn-gradient-orange" href="courses/Preview_B2.pdf" target="_blank" rel="noopener">Preview (first 3 pages)</a>
+            <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+              <input type="hidden" name="cmd" value="_donations">
+              <input type="hidden" name="business" value="jobcarmen@yahoo.com">
+              <input type="hidden" name="item_name" value="Donation for English in Chapters — B2 course (min. $10)">
+              <input type="hidden" name="amount" value="10.00">
+              <input type="hidden" name="currency_code" value="USD">
+              <input type="hidden" name="no_shipping" value="1">
+              <button type="submit" class="btn-gradient-orange">💳 PayPal or Card Donation</button>
+            </form>
           </div>
           <div class="donate-block">
             <p class="donate-msg">Prefer to pay what you like? Support Carmen directly with a minimum $10 donation, then message her (or reply to your payment receipt) for the B2 PDF download.</p>
-            <div class="donate-row">
-              <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-                <input type="hidden" name="cmd" value="_donations">
-                <input type="hidden" name="business" value="jobcarmen@yahoo.com">
-                <input type="hidden" name="item_name" value="Donation for English in Chapters — B2 course (min. $10)">
-                <input type="hidden" name="amount" value="10.00">
-                <input type="hidden" name="currency_code" value="USD">
-                <input type="hidden" name="no_shipping" value="1">
-                <button type="submit" class="btn-gradient-orange">💙 PayPal Donate</button>
-              </form>
-            </div>
           </div>
         </div>
       </div>
