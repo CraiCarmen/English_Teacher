@@ -10,6 +10,45 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/style.css">
+<style>
+  /* ---- Added: enlarged "why students stick" card ---- */
+  .hero-card.hero-card--big{
+    padding:44px 40px;
+    max-width:560px;
+  }
+  .hero-card.hero-card--big h3{ font-size:1.5rem; margin-bottom:.6em; }
+  .hero-card.hero-card--big p{ font-size:1.08rem; line-height:1.65; }
+  .hero-card.hero-card--big .hero-chip-row{ margin-top:22px; gap:10px; }
+  .hero-card.hero-card--big .chip{ font-size:.85rem; padding:8px 16px; }
+
+  /* ---- Added: reviews (Preply) ---- */
+  .reviews-wrap{ max-width:1100px; margin:36px auto 0; padding:0 24px; }
+  .reviews-head{ text-align:center; margin-bottom:22px; }
+  .reviews-score{ display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; margin-bottom:6px; }
+  .reviews-score .stars{ color:#FFB100; font-size:1.2rem; letter-spacing:2px; }
+  .reviews-score strong{ font-size:1.3rem; }
+  .reviews-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:18px; margin-top:22px; }
+  .review-card{ background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14); border-radius:14px; padding:20px 20px 18px; }
+  .review-card .review-stars{ color:#FFB100; letter-spacing:2px; margin-bottom:8px; display:block; }
+  .review-card p{ font-size:.92rem; line-height:1.55; margin:0 0 12px; opacity:.92; }
+  .review-card .review-who{ font-size:.82rem; opacity:.7; display:flex; justify-content:space-between; }
+  .reviews-source{ text-align:center; margin-top:18px; font-size:.85rem; opacity:.75; }
+  .reviews-source a{ color:inherit; text-decoration:underline; }
+
+  /* ---- Added: gradient-orange donate/preview buttons ---- */
+  .btn-gradient-orange{
+    display:inline-flex; align-items:center; justify-content:center; gap:8px;
+    background:linear-gradient(135deg,#FFB347 0%,#FF7A18 55%,#E85D04 100%);
+    color:#fff !important; font-weight:700; border:none; border-radius:10px;
+    padding:12px 18px; text-decoration:none; font-size:.92rem;
+    box-shadow:0 4px 14px rgba(232,93,4,.35); transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .btn-gradient-orange:hover{ transform:translateY(-2px); box-shadow:0 8px 20px rgba(232,93,4,.45); }
+  .donate-block{ margin-top:16px; padding-top:16px; border-top:1px dashed rgba(0,0,0,.15); }
+  .donate-msg{ font-size:.82rem; color:var(--ink-soft); margin-bottom:10px; line-height:1.5; }
+  .donate-row{ display:flex; flex-wrap:wrap; gap:10px; }
+  .donate-row form{ margin:0; }
+</style>
 </head>
 <body>
 
@@ -45,7 +84,7 @@
         <div><strong>2</strong><span>ready-to-use courses (A2 · B2)</span></div>
       </div>
     </div>
-    <div class="hero-card">
+    <div class="hero-card hero-card--big">
       <h3>Why students stick with these lessons</h3>
       <p>The same standard Carmen applies to audit-ready technical work — professional delivery, quality-first process, and simple, usable outputs — is applied to every lesson and every page of these courses.</p>
       <div class="hero-chip-row">
@@ -57,6 +96,51 @@
   </div>
 </section>
 
+
+<section class="reviews-wrap" id="reviews">
+  <div class="reviews-head">
+    <span class="eyebrow">English tutoring · plain, practical, professional</span>
+    <h2 style="margin:.3em 0;">What students say</h2>
+    <div class="reviews-score">
+      <span class="stars">★★★★★</span>
+      <strong>4.9 / 5</strong>
+      <span style="opacity:.75;">· 17 written reviews · 640 lessons taught</span>
+    </div>
+  </div>
+  <div class="reviews-grid">
+    <div class="review-card">
+      <span class="review-stars">★★★★★</span>
+      <p>Carmen made a real difference to both my English and my confidence to speak it. Every lesson feels relaxed, interactive and shaped around what I actually need, so the time flies by.</p>
+      <div class="review-who"><span>Stefania</span><span>Jul 2026</span></div>
+    </div>
+    <div class="review-card">
+      <span class="review-stars">★★★★★</span>
+      <p>Carmen put in real effort to help me hit my goals, and it showed in how quickly my English improved.</p>
+      <div class="review-who"><span>Smadu</span><span>Jun 2026</span></div>
+    </div>
+    <div class="review-card">
+      <span class="review-stars">★★★★★</span>
+      <p>She noticed exactly where I was starting from and helped me get past my fear of speaking English surprisingly fast, with lessons that are interactive and clearly planned out.</p>
+      <div class="review-who"><span>Cristina</span><span>Jun 2026</span></div>
+    </div>
+    <div class="review-card">
+      <span class="review-stars">★★★★★</span>
+      <p>Carmen adapts quickly to what each student needs and always makes the lesson feel comfortable.</p>
+      <div class="review-who"><span>Edith</span><span>Apr 2026</span></div>
+    </div>
+    <div class="review-card">
+      <span class="review-stars">★★★★★</span>
+      <p>I picked up more in one month with Carmen than in twelve years of school English. The lessons are well structured and genuinely adaptable.</p>
+      <div class="review-who"><span>Alexandru</span><span>Apr 2026</span></div>
+    </div>
+    <div class="review-card">
+      <span class="review-stars">★★★★★</span>
+      <p>Her confidence that I'd improve quickly was contagious — after a few months focused on finance and business English, writing emails and joining conversations both feel effortless now.</p>
+      <div class="review-who"><span>Marta</span><span>Mar 2026</span></div>
+    </div>
+  </div>
+  <p class="reviews-source">Reviews collected on Carmen's Preply profile · <a href="https://preply.com/en/tutor/5963700" target="_blank" rel="noopener">See all 17 reviews on Preply →</a></p>
+</section>
 
 <section class="tint" id="courses">
   <div class="wrap">
@@ -91,7 +175,23 @@
               <input type="hidden" name="no_shipping" value="1">
               <button type="submit" class="btn btn-primary btn-block">Buy with PayPal</button>
             </form>
-            <a class="btn btn-outline" href="courses/English_Course_A2.pdf" target="_blank" rel="noopener">Preview</a>
+            <a class="btn btn-outline" href="courses/Preview_A2.pdf" target="_blank" rel="noopener">Preview (first 3 pages)</a>
+          </div>
+          <div class="donate-block">
+            <p class="donate-msg">Prefer to pay what you like? Support Carmen directly with a minimum $10 donation, then message her (or reply to your payment receipt) for the A2 PDF download.</p>
+            <div class="donate-row">
+              <a class="btn-gradient-orange" href="https://www.buymeacoffee.com/carmencrai" target="_blank" rel="noopener">☕ Buy Me a Coffee</a>
+              <a class="btn-gradient-orange" href="https://ko-fi.com/carmencrai" target="_blank" rel="noopener">💛 Ko-fi</a>
+              <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+                <input type="hidden" name="cmd" value="_donations">
+                <input type="hidden" name="business" value="jobcarmen@yahoo.com">
+                <input type="hidden" name="item_name" value="Donation for English in Chapters — A2 course (min. $10)">
+                <input type="hidden" name="amount" value="10.00">
+                <input type="hidden" name="currency_code" value="USD">
+                <input type="hidden" name="no_shipping" value="1">
+                <button type="submit" class="btn-gradient-orange">💙 PayPal Donate</button>
+              </form>
+            </div>
           </div>
         </div>
       </div>
@@ -120,7 +220,23 @@
               <input type="hidden" name="no_shipping" value="1">
               <button type="submit" class="btn btn-primary btn-block">Buy with PayPal</button>
             </form>
-            <a class="btn btn-outline" href="courses/English_Course_B2.pdf" target="_blank" rel="noopener">Preview</a>
+            <a class="btn btn-outline" href="courses/Preview_B2.pdf" target="_blank" rel="noopener">Preview (first 3 pages)</a>
+          </div>
+          <div class="donate-block">
+            <p class="donate-msg">Prefer to pay what you like? Support Carmen directly with a minimum $10 donation, then message her (or reply to your payment receipt) for the B2 PDF download.</p>
+            <div class="donate-row">
+              <a class="btn-gradient-orange" href="https://www.buymeacoffee.com/carmencrai" target="_blank" rel="noopener">☕ Buy Me a Coffee</a>
+              <a class="btn-gradient-orange" href="https://ko-fi.com/carmencrai" target="_blank" rel="noopener">💛 Ko-fi</a>
+              <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+                <input type="hidden" name="cmd" value="_donations">
+                <input type="hidden" name="business" value="jobcarmen@yahoo.com">
+                <input type="hidden" name="item_name" value="Donation for English in Chapters — B2 course (min. $10)">
+                <input type="hidden" name="amount" value="10.00">
+                <input type="hidden" name="currency_code" value="USD">
+                <input type="hidden" name="no_shipping" value="1">
+                <button type="submit" class="btn-gradient-orange">💙 PayPal Donate</button>
+              </form>
+            </div>
           </div>
         </div>
       </div>
@@ -169,7 +285,7 @@
               <p>The A2 and B2 grammar guides below turn dense grammar references into short chapters with 3 clear examples each — built the same way Carmen turns messy data into clear reports.</p>
             </div>
           </li>
-        </div>
+        </ul>
       </div>
     </div>
   </div>
