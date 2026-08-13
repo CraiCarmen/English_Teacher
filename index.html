@@ -40,13 +40,33 @@
   .reviews-score{ display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; margin-bottom:6px; }
   .reviews-score .stars{ color:#FFB100; font-size:1.2rem; letter-spacing:2px; }
   .reviews-score strong{ font-size:1.3rem; }
-  .reviews-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:18px; margin-top:22px; }
-  .review-card{ background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14); border-radius:14px; padding:20px 20px 18px; }
+  /* Auto-scrolling reviews marquee */
+  .reviews-marquee{
+    margin-top:22px; overflow:hidden; position:relative;
+    -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 48px,#000 calc(100% - 48px),transparent 100%);
+    mask-image:linear-gradient(90deg,transparent 0,#000 48px,#000 calc(100% - 48px),transparent 100%);
+  }
+  .reviews-track{
+    display:flex; gap:18px; width:max-content;
+    animation:reviews-scroll 42s linear infinite;
+  }
+  .reviews-marquee:hover .reviews-track{ animation-play-state:paused; }
+  @keyframes reviews-scroll{
+    from{ transform:translateX(0); }
+    to{ transform:translateX(-50%); }
+  }
+  .review-card{
+    background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14); border-radius:14px;
+    padding:20px 20px 18px; flex:0 0 auto; width:280px;
+  }
   .review-card .review-stars{ color:#FFB100; letter-spacing:2px; margin-bottom:8px; display:block; }
   .review-card p{ font-size:.92rem; line-height:1.55; margin:0 0 12px; opacity:.92; }
   .review-card .review-who{ font-size:.82rem; opacity:.7; display:flex; justify-content:space-between; }
   .reviews-source{ text-align:center; margin-top:18px; font-size:.85rem; opacity:.75; }
   .reviews-source a{ color:inherit; text-decoration:underline; }
+  @media (prefers-reduced-motion: reduce){
+    .reviews-track{ animation:none; }
+  }
 
   /* ---- Added: one shared deep-orange gradient for every primary button ---- */
   .btn-gradient-orange,
@@ -83,7 +103,7 @@
     transform:translateY(-2px); box-shadow:0 8px 22px rgba(4,27,54,.6);
   }
 
-  /* ---- Added: editable donation amount control (min €15 / max €9,900) ---- */
+  /* ---- Added: editable donation amount control (min €15, no maximum) ---- */
   .amount-field{ margin:14px 0 12px; }
   .amount-label{ display:block; font-size:.8rem; font-weight:600; color:var(--ink-soft); margin-bottom:6px; }
   .amount-row{ display:flex; align-items:center; gap:6px; max-width:220px; }
@@ -170,36 +190,69 @@
       <span style="opacity:.75;">· 17 written reviews · 640 lessons taught</span>
     </div>
   </div>
-  <div class="reviews-grid">
-    <div class="review-card">
-      <span class="review-stars">★★★★★</span>
-      <p>Carmen made a real difference to both my English and my confidence to speak it. Every lesson feels relaxed, interactive and shaped around what I actually need, so the time flies by.</p>
-      <div class="review-who"><span>Stefania</span><span>Jul 2026</span></div>
-    </div>
-    <div class="review-card">
-      <span class="review-stars">★★★★★</span>
-      <p>Carmen put in real effort to help me hit my goals, and it showed in how quickly my English improved.</p>
-      <div class="review-who"><span>Smadu</span><span>Jun 2026</span></div>
-    </div>
-    <div class="review-card">
-      <span class="review-stars">★★★★★</span>
-      <p>She noticed exactly where I was starting from and helped me get past my fear of speaking English surprisingly fast, with lessons that are interactive and clearly planned out.</p>
-      <div class="review-who"><span>Cristina</span><span>Jun 2026</span></div>
-    </div>
-    <div class="review-card">
-      <span class="review-stars">★★★★★</span>
-      <p>Carmen adapts quickly to what each student needs and always makes the lesson feel comfortable.</p>
-      <div class="review-who"><span>Edith</span><span>Apr 2026</span></div>
-    </div>
-    <div class="review-card">
-      <span class="review-stars">★★★★★</span>
-      <p>I picked up more in one month with Carmen than in twelve years of school English. The lessons are well structured and genuinely adaptable.</p>
-      <div class="review-who"><span>Alexandru</span><span>Apr 2026</span></div>
-    </div>
-    <div class="review-card">
-      <span class="review-stars">★★★★★</span>
-      <p>Her confidence that I'd improve quickly was contagious — after a few months focused on finance and business English, writing emails and joining conversations both feel effortless now.</p>
-      <div class="review-who"><span>Marta</span><span>Mar 2026</span></div>
+  <div class="reviews-marquee">
+    <div class="reviews-track">
+      <div class="review-card">
+        <span class="review-stars">★★★★★</span>
+        <p>Carmen made a real difference to both my English and my confidence to speak it. Every lesson feels relaxed, interactive and shaped around what I actually need, so the time flies by.</p>
+        <div class="review-who"><span>Stefania</span><span>Jul 2026</span></div>
+      </div>
+      <div class="review-card">
+        <span class="review-stars">★★★★★</span>
+        <p>Carmen put in real effort to help me hit my goals, and it showed in how quickly my English improved.</p>
+        <div class="review-who"><span>Smadu</span><span>Jun 2026</span></div>
+      </div>
+      <div class="review-card">
+        <span class="review-stars">★★★★★</span>
+        <p>She noticed exactly where I was starting from and helped me get past my fear of speaking English surprisingly fast, with lessons that are interactive and clearly planned out.</p>
+        <div class="review-who"><span>Cristina</span><span>Jun 2026</span></div>
+      </div>
+      <div class="review-card">
+        <span class="review-stars">★★★★★</span>
+        <p>Carmen adapts quickly to what each student needs and always makes the lesson feel comfortable.</p>
+        <div class="review-who"><span>Edith</span><span>Apr 2026</span></div>
+      </div>
+      <div class="review-card">
+        <span class="review-stars">★★★★★</span>
+        <p>I picked up more in one month with Carmen than in twelve years of school English. The lessons are well structured and genuinely adaptable.</p>
+        <div class="review-who"><span>Alexandru</span><span>Apr 2026</span></div>
+      </div>
+      <div class="review-card">
+        <span class="review-stars">★★★★★</span>
+        <p>Her confidence that I'd improve quickly was contagious — after a few months focused on finance and business English, writing emails and joining conversations both feel effortless now.</p>
+        <div class="review-who"><span>Marta</span><span>Mar 2026</span></div>
+      </div>
+      <!-- duplicated set for a seamless scrolling loop (aria-hidden so screen readers don't hear it twice) -->
+      <div class="review-card" aria-hidden="true">
+        <span class="review-stars">★★★★★</span>
+        <p>Carmen made a real difference to both my English and my confidence to speak it. Every lesson feels relaxed, interactive and shaped around what I actually need, so the time flies by.</p>
+        <div class="review-who"><span>Stefania</span><span>Jul 2026</span></div>
+      </div>
+      <div class="review-card" aria-hidden="true">
+        <span class="review-stars">★★★★★</span>
+        <p>Carmen put in real effort to help me hit my goals, and it showed in how quickly my English improved.</p>
+        <div class="review-who"><span>Smadu</span><span>Jun 2026</span></div>
+      </div>
+      <div class="review-card" aria-hidden="true">
+        <span class="review-stars">★★★★★</span>
+        <p>She noticed exactly where I was starting from and helped me get past my fear of speaking English surprisingly fast, with lessons that are interactive and clearly planned out.</p>
+        <div class="review-who"><span>Cristina</span><span>Jun 2026</span></div>
+      </div>
+      <div class="review-card" aria-hidden="true">
+        <span class="review-stars">★★★★★</span>
+        <p>Carmen adapts quickly to what each student needs and always makes the lesson feel comfortable.</p>
+        <div class="review-who"><span>Edith</span><span>Apr 2026</span></div>
+      </div>
+      <div class="review-card" aria-hidden="true">
+        <span class="review-stars">★★★★★</span>
+        <p>I picked up more in one month with Carmen than in twelve years of school English. The lessons are well structured and genuinely adaptable.</p>
+        <div class="review-who"><span>Alexandru</span><span>Apr 2026</span></div>
+      </div>
+      <div class="review-card" aria-hidden="true">
+        <span class="review-stars">★★★★★</span>
+        <p>Her confidence that I'd improve quickly was contagious — after a few months focused on finance and business English, writing emails and joining conversations both feel effortless now.</p>
+        <div class="review-who"><span>Marta</span><span>Mar 2026</span></div>
+      </div>
     </div>
   </div>
   <p class="reviews-source">Reviews collected on Carmen's Preply profile · <a href="https://preply.com/en/tutor/5963700" target="_blank" rel="noopener">See all 17 reviews on Preply →</a></p>
@@ -236,9 +289,9 @@
               <label class="amount-label" for="amountA2">Your amount</label>
               <div class="amount-row">
                 <span class="amount-currency">€</span>
-                <input type="number" id="amountA2" class="amount-input" min="15" max="9900" step="0.01" value="15">
+                <input type="number" id="amountA2" class="amount-input" min="15" step="0.01" value="15">
               </div>
-              <p class="amount-hint">Min €15 · max €9,900 per transaction</p>
+              <p class="amount-hint">Min €15 per transaction</p>
             </div>
             <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" onsubmit="return preparePayment('amountA2','payAmountA2', this)">
               <input type="hidden" name="cmd" value="_donations">
@@ -281,9 +334,9 @@
               <label class="amount-label" for="amountB2">Your amount</label>
               <div class="amount-row">
                 <span class="amount-currency">€</span>
-                <input type="number" id="amountB2" class="amount-input" min="15" max="9900" step="0.01" value="15">
+                <input type="number" id="amountB2" class="amount-input" min="15" step="0.01" value="15">
               </div>
-              <p class="amount-hint">Min €15 · max €9,900 per transaction</p>
+              <p class="amount-hint">Min €15 per transaction</p>
             </div>
             <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" onsubmit="return preparePayment('amountB2','payAmountB2', this)">
               <input type="hidden" name="cmd" value="_donations">
@@ -397,9 +450,9 @@
           <label class="amount-label" for="amountContact">Your amount</label>
           <div class="amount-row">
             <span class="amount-currency">€</span>
-            <input type="number" id="amountContact" class="amount-input" min="15" max="9900" step="0.01" value="15">
+            <input type="number" id="amountContact" class="amount-input" min="15" step="0.01" value="15">
           </div>
-          <p class="amount-hint">Min €15 · max €9,900 per transaction</p>
+          <p class="amount-hint">Min €15 per transaction</p>
         </div>
         <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" onsubmit="return preparePayment('amountContact','payAmountContact', this)">
           <input type="hidden" name="cmd" value="_donations">
@@ -416,8 +469,8 @@
       </div>
 
       <div class="pay-card" id="booking">
-        <h3>Book a lesson</h3><br>
-        <p>Book straight through Carmen's Preply profile, or email her directly to arrange a time.</p><br><br><br>
+        <h3>Book a lesson</h3>
+        <p>Book straight through Carmen's Preply profile, or email her directly to arrange a time.</p>
         <a class="btn-gradient-orange" href="https://preply.com/en/tutor/5963700" target="_blank" rel="noopener" style="width:100%;">📅 Book on Preply</a>
         <a class="btn-blue-gradient" href="mailto:jobcarmen@yahoo.com?subject=Lesson%20booking%20request" style="width:100%; margin-top:16px;">✉️ Email me</a>
       </div>
@@ -438,7 +491,7 @@
     document.getElementById('navLinks').classList.toggle('open');
   });
 
-  // Validate the editable donation amount (min €15, max €9,900) and sync it
+  // Validate the editable donation amount (min €15) and sync it
   // into the hidden PayPal "amount" field right before the form submits.
   function preparePayment(inputId, hiddenId, formEl){
     var input = document.getElementById(inputId);
@@ -447,11 +500,6 @@
 
     if (isNaN(value) || value < 15) {
       alert('Please enter an amount of at least €15.');
-      input.focus();
-      return false;
-    }
-    if (value > 9900) {
-      alert('The maximum amount per transaction is €9,900.');
       input.focus();
       return false;
     }
