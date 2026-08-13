@@ -94,9 +94,13 @@
   }
   .amount-hint{ font-size:.75rem; opacity:.65; margin-top:4px; }
 
-  /* ---- Added: contact-page "support / pay" card ---- */
+  /* ---- Added: contact-page "support / pay" + "booking" cards, side by side ---- */
+  .cards-row{
+    display:flex; flex-wrap:wrap; gap:20px; justify-content:center;
+    margin:34px auto 0; max-width:900px;
+  }
   .pay-card{
-    max-width:420px; margin:34px auto 0; padding:26px 26px 22px;
+    flex:1 1 380px; max-width:420px; margin:0; padding:26px 26px 22px;
     background:rgba(255,255,255,.06); border:1px solid rgba(0,0,0,.1);
     border-radius:14px; text-align:center;
   }
@@ -104,24 +108,7 @@
   .pay-card p{ font-size:.88rem; color:var(--ink-soft); margin:0 0 16px; line-height:1.55; }
   .pay-card .amount-row{ margin:0 auto 4px; }
   .pay-card .amount-field{ text-align:left; }
-
-  /* ---- Added: booking / calendar section ---- */
-  .booking-wrap{ max-width:820px; margin:40px auto 0; padding:0 24px; }
-  .booking-hours{
-    display:flex; flex-wrap:wrap; gap:14px; justify-content:center; margin:18px 0 26px;
-  }
-  .booking-hours .hours-card{
-    background:rgba(255,255,255,.06); border:1px solid rgba(0,0,0,.1); border-radius:12px;
-    padding:16px 20px; min-width:220px; text-align:center;
-  }
-  .booking-hours .hours-card strong{ display:block; font-size:.95rem; margin-bottom:4px; }
-  .booking-hours .hours-card span{ font-size:.85rem; color:var(--ink-soft); }
-  .booking-embed{
-    border-radius:14px; overflow:hidden; border:1px solid rgba(0,0,0,.12);
-    min-height:600px; background:rgba(0,0,0,.03);
-  }
-  .booking-embed iframe{ width:100%; height:600px; border:0; display:block; }
-  .booking-fallback{ text-align:center; margin-top:16px; font-size:.85rem; color:var(--ink-soft); }
+  .pay-card a.btn-blue-gradient{ text-decoration:none; }
 </style>
 </head>
 <body>
@@ -401,56 +388,41 @@
       <a class="badge" href="https://craicarmen.github.io/Cv_Crai_Carmen/" >Cv_Crai_Carmen</a>
     </div>
 
-    <!-- Standalone payment (not tied to a course download) -->
-    <div class="pay-card">
-      <h3>Pay for a lesson or send support</h3>
-      <p>Use this if Carmen has asked you to pay directly for a lesson, a package, or just to support her work — this payment isn't linked to any course download.</p>
-      <div class="amount-field">
-        <label class="amount-label" for="amountContact">Your amount</label>
-        <div class="amount-row">
-          <span class="amount-currency">€</span>
-          <input type="number" id="amountContact" class="amount-input" min="15" max="9900" step="0.01" value="15">
+    <!-- Standalone payment (not tied to a course download) + booking, side by side -->
+    <div class="cards-row">
+      <div class="pay-card">
+        <h3>Pay for a lesson or send support</h3>
+        <p>Use this if Carmen has asked you to pay directly for a lesson, a package, or just to support her work — this payment isn't linked to any course download.</p>
+        <div class="amount-field">
+          <label class="amount-label" for="amountContact">Your amount</label>
+          <div class="amount-row">
+            <span class="amount-currency">€</span>
+            <input type="number" id="amountContact" class="amount-input" min="15" max="9900" step="0.01" value="15">
+          </div>
+          <p class="amount-hint">Min €15 · max €9,900 per transaction</p>
         </div>
-        <p class="amount-hint">Min €15 · max €9,900 per transaction</p>
+        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" onsubmit="return preparePayment('amountContact','payAmountContact', this)">
+          <input type="hidden" name="cmd" value="_donations">
+          <input type="hidden" name="business" value="jobcarmen@yahoo.com">
+          <input type="hidden" name="item_name" value="Payment to Carmen Crai (lessons / support)">
+          <input type="hidden" name="amount" id="payAmountContact" value="15.00">
+          <input type="hidden" name="currency_code" value="EUR">
+          <input type="hidden" name="no_shipping" value="1">
+          <input type="hidden" name="no_note" value="1">
+          <input type="hidden" name="landing_page" value="Billing">
+          <button type="submit" class="btn-blue-gradient">💳 Pay by Card or PayPal</button>
+        </form>
+        <p class="donate-msg" style="margin-top:12px;">No PayPal account needed — choose "Pay with Debit or Credit Card" on the next page to check out as a guest.</p>
       </div>
-      <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" onsubmit="return preparePayment('amountContact','payAmountContact', this)">
-        <input type="hidden" name="cmd" value="_donations">
-        <input type="hidden" name="business" value="jobcarmen@yahoo.com">
-        <input type="hidden" name="item_name" value="Payment to Carmen Crai (lessons / support)">
-        <input type="hidden" name="amount" id="payAmountContact" value="15.00">
-        <input type="hidden" name="currency_code" value="EUR">
-        <input type="hidden" name="no_shipping" value="1">
-        <input type="hidden" name="no_note" value="1">
-        <input type="hidden" name="landing_page" value="Billing">
-        <button type="submit" class="btn-blue-gradient">💳 Pay by Card or PayPal</button>
-      </form>
-      <p class="donate-msg" style="margin-top:12px;">No PayPal account needed — choose "Pay with Debit or Credit Card" on the next page to check out as a guest.</p>
-    </div>
-  </div>
-</section>
 
-
-<section class="tint" id="booking">
-  <div class="booking-wrap">
-    <div class="section-head">
-      <span class="eyebrow">Book a lesson</span>
-      <h2>Find a time that works</h2>
-      <p>Lessons run Monday to Saturday. Pick a slot below and it'll go straight into Carmen's Outlook calendar (jobcarmen@yahoo.com).</p>
-    </div>
-    <div class="booking-hours">
-      <div class="hours-card">
-        <strong>Monday – Saturday</strong>
-        <span>11:00 AM – 1:00 PM</span>
-      </div>
-      <div class="hours-card">
-        <strong>Saturday (extra slot)</strong>
-        <span>4:00 PM – 8:00 PM</span>
+      <div class="pay-card" id="booking">
+        <h3>Book a lesson</h3>
+        <p>Book straight through Carmen's Preply profile, or email her directly to arrange a time.</p>
+        <a class="btn-blue-gradient" href="https://preply.com/en/tutor/5963700" target="_blank" rel="noopener" style="width:100%;">📅 Book on Preply</a>
+        <a class="btn-blue-gradient" href="mailto:jobcarmen@yahoo.com?subject=Lesson%20booking%20request" style="width:100%; margin-top:12px;">✉️ Email me</a>
+        <p class="donate-msg" style="margin-top:12px;">Lessons run Monday–Saturday, 11:00 AM–1:00 PM, plus an extra Saturday slot 4:00 PM–8:00 PM.</p>
       </div>
     </div>
-    <div class="booking-embed">
-      <iframe src="https://outlook.office.com/bookwithme/user/REPLACE-WITH-YOUR-MICROSOFT-BOOKINGS-LINK" title="Book a lesson with Carmen Crai" loading="lazy"></iframe>
-    </div>
-    <p class="booking-fallback">Calendar not loading? Email <a href="mailto:jobcarmen@yahoo.com?subject=Lesson%20booking%20request">jobcarmen@yahoo.com</a> with your preferred day and time and Carmen will confirm it directly.</p>
   </div>
 </section>
 
