@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thank you! Your A2 course download | Carmen Crai</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="assets/img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+<style>
+  .thankyou-wrap{ max-width:640px; margin:0 auto; padding:90px 24px 70px; text-align:center; }
+  .thankyou-wrap h1{ margin-bottom:.4em; }
+  .thankyou-wrap p{ color:var(--ink-soft); line-height:1.6; }
+  .btn-blue-gradient{
+    display:inline-flex; align-items:center; justify-content:center; gap:8px;
+    background:linear-gradient(135deg,#1B4F91 0%,#0F3D73 45%,#041B36 100%) !important;
+    color:#fff !important; font-weight:700; border:none; border-radius:10px;
+    padding:14px 26px; text-decoration:none; font-size:1rem;
+    box-shadow:0 4px 14px rgba(4,27,54,.45); margin-top:26px;
+  }
+  .thankyou-note{ font-size:.85rem; margin-top:18px; }
+</style>
+</head>
+<body>
+
+<section class="thankyou-wrap">
+  <span class="eyebrow">Payment received</span>
+  <h1>Thank you! Your A2 course is ready 🎉</h1>
+  <p>Your download should start automatically in a second. If it doesn't, use the button below to get your PDF.</p>
+  <a id="downloadLink" class="btn-blue-gradient" href="courses/English_in_Chapters_A2.pdf" download>⬇ Download the A2 course (PDF)</a>
+  <p class="thankyou-note">Trouble downloading? Email <a href="mailto:jobcarmen@yahoo.com">jobcarmen@yahoo.com</a> with your payment confirmation and Carmen will send it to you directly.</p>
+  <p class="thankyou-note"><a href="index.html#courses">← Back to the courses page</a></p>
+</section>
+
+<script>
+  // Auto-trigger the download once the page loads.
+  window.addEventListener('load', function () {
+    setTimeout(function () {
+      document.getElementById('downloadLink').click();
+    }, 400);
+  });
+</script>
+</body>
+</html>

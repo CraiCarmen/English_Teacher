@@ -13,17 +13,21 @@
 <style>
   /* ---- Added: enlarged "why students stick" card ---- */
   .hero-card.hero-card--big{
-    padding:44px 40px;
-    max-width:560px;
+    padding:52px 46px;
+    max-width:660px;
+    width:100%;
   }
-  .hero-card.hero-card--big h3{ font-size:1.5rem; margin-bottom:.6em; }
-  .hero-card.hero-card--big p{ font-size:1.08rem; line-height:1.65; }
+  .hero-card.hero-card--big h3{ font-size:1.7rem; margin-bottom:.6em; }
+  .hero-card.hero-card--big p{ font-size:1.14rem; line-height:1.7; }
   .hero-card.hero-card--big .hero-chip-row{
-    margin-top:22px; gap:10px; flex-wrap:wrap;
+    margin-top:24px; gap:10px; flex-wrap:wrap;
   }
   .hero-card.hero-card--big .chip{
-    font-size:.85rem; padding:8px 16px;
+    font-size:.88rem; padding:9px 18px;
     white-space:nowrap; flex:0 0 auto;
+  }
+  @media (min-width:900px){
+    .hero-inner{ grid-template-columns:0.9fr 1.3fr; }
   }
   @media (max-width:480px){
     .hero-card.hero-card--big{ padding:32px 24px; max-width:100%; }
@@ -65,6 +69,30 @@
   .course-actions form .btn-gradient-orange{ flex:1; width:100%; }
   .donate-block{ margin-top:16px; padding-top:16px; border-top:1px dashed rgba(0,0,0,.15); }
   .donate-msg{ font-size:.82rem; color:var(--ink-soft); margin-bottom:0; line-height:1.5; }
+
+  /* ---- Added: darker blue gradient for the PayPal/Card donation buttons ---- */
+  .btn-blue-gradient{
+    display:inline-flex; align-items:center; justify-content:center; gap:8px;
+    background:linear-gradient(135deg,#1B4F91 0%,#0F3D73 45%,#041B36 100%) !important;
+    color:#fff !important; font-weight:700; border:none; border-radius:10px;
+    padding:12px 18px; text-decoration:none; font-size:.92rem; width:100%;
+    box-shadow:0 4px 14px rgba(4,27,54,.45); transition:transform .15s ease, box-shadow .15s ease;
+    cursor:pointer;
+  }
+  .btn-blue-gradient:hover{
+    transform:translateY(-2px); box-shadow:0 8px 22px rgba(4,27,54,.6);
+  }
+
+  /* ---- Added: editable donation amount control (min €15 / max €9,900) ---- */
+  .amount-field{ margin:14px 0 12px; }
+  .amount-label{ display:block; font-size:.8rem; font-weight:600; color:var(--ink-soft); margin-bottom:6px; }
+  .amount-row{ display:flex; align-items:center; gap:6px; max-width:220px; }
+  .amount-row .amount-currency{ font-weight:700; font-size:1rem; opacity:.75; }
+  .amount-input{
+    flex:1; padding:10px 12px; border-radius:8px; border:1px solid rgba(0,0,0,.2);
+    font-size:1rem; font-family:inherit; width:100%;
+  }
+  .amount-hint{ font-size:.75rem; opacity:.65; margin-top:4px; }
 </style>
 </head>
 <body>
@@ -77,6 +105,7 @@
     </a>
     <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
     <nav class="links" id="navLinks">
+      <a href="#reviews">Reviews</a>
       <a href="#about">About</a>
       <a href="#courses">Courses</a>
       <a href="#contact">Contact</a>
@@ -181,21 +210,34 @@
             <li>Appendix with further-reading links</li>
             <li>PDF — read on any device</li>
           </ul>
-          <div class="course-price"><strong>$10</strong><span>one-time · instant PDF</span></div>
+          <div class="course-price"><strong>€15+</strong><span>pay what you like · instant PDF</span></div>
           <div class="course-actions">
             <a class="btn-gradient-orange" href="courses/Preview_A2.pdf" target="_blank" rel="noopener">Preview (first 3 pages)</a>
-            <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-              <input type="hidden" name="cmd" value="_donations">
-              <input type="hidden" name="business" value="jobcarmen@yahoo.com">
-              <input type="hidden" name="item_name" value="Donation for English in Chapters — A2 course (min. $10)">
-              <input type="hidden" name="amount" value="10.00">
-              <input type="hidden" name="currency_code" value="USD">
-              <input type="hidden" name="no_shipping" value="1">
-              <button type="submit" class="btn-gradient-orange">💳 PayPal or Card Donation</button>
-            </form>
           </div>
           <div class="donate-block">
-            <p class="donate-msg">Prefer to pay what you like? Support Carmen directly with a minimum $10 donation, then message her (or reply to your payment receipt) for the A2 PDF download.</p>
+            <div class="amount-field">
+              <label class="amount-label" for="amountA2">Your amount</label>
+              <div class="amount-row">
+                <span class="amount-currency">€</span>
+                <input type="number" id="amountA2" class="amount-input" min="15" max="9900" step="0.01" value="15">
+              </div>
+              <p class="amount-hint">Min €15 · max €9,900 per transaction</p>
+            </div>
+            <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" onsubmit="return preparePayment('amountA2','payAmountA2', this)">
+              <input type="hidden" name="cmd" value="_donations">
+              <input type="hidden" name="business" value="jobcarmen@yahoo.com">
+              <input type="hidden" name="item_name" value="Donation for English in Chapters — A2 course (min €15)">
+              <input type="hidden" name="amount" id="payAmountA2" value="15.00">
+              <input type="hidden" name="currency_code" value="EUR">
+              <input type="hidden" name="no_shipping" value="1">
+              <input type="hidden" name="no_note" value="1">
+              <input type="hidden" name="landing_page" value="Billing">
+              <input type="hidden" name="rm" value="2">
+              <input type="hidden" name="return" value="https://REPLACE-WITH-YOUR-DOMAIN/thank-you-a2.html">
+              <input type="hidden" name="cancel_return" value="https://REPLACE-WITH-YOUR-DOMAIN/index.html#courses">
+              <button type="submit" class="btn-blue-gradient">💳 Pay by Card or PayPal</button>
+            </form>
+            <p class="donate-msg">No PayPal account needed — on the next page choose "Pay with Debit or Credit Card" to check out as a guest. After payment you'll be taken straight to the A2 download page.</p>
           </div>
         </div>
       </div>
@@ -213,28 +255,41 @@
             <li>Appendix with further-reading links</li>
             <li>PDF — read on any device</li>
           </ul>
-          <div class="course-price"><strong>$10</strong><span>one-time · instant PDF</span></div>
+          <div class="course-price"><strong>€15+</strong><span>pay what you like · instant PDF</span></div>
           <div class="course-actions">
             <a class="btn-gradient-orange" href="courses/Preview_B2.pdf" target="_blank" rel="noopener">Preview (first 3 pages)</a>
-            <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
-              <input type="hidden" name="cmd" value="_donations">
-              <input type="hidden" name="business" value="jobcarmen@yahoo.com">
-              <input type="hidden" name="item_name" value="Donation for English in Chapters — B2 course (min. $10)">
-              <input type="hidden" name="amount" value="10.00">
-              <input type="hidden" name="currency_code" value="USD">
-              <input type="hidden" name="no_shipping" value="1">
-              <button type="submit" class="btn-gradient-orange">💳 PayPal or Card Donation</button>
-            </form>
           </div>
           <div class="donate-block">
-            <p class="donate-msg">Prefer to pay what you like? Support Carmen directly with a minimum $10 donation, then message her (or reply to your payment receipt) for the B2 PDF download.</p>
+            <div class="amount-field">
+              <label class="amount-label" for="amountB2">Your amount</label>
+              <div class="amount-row">
+                <span class="amount-currency">€</span>
+                <input type="number" id="amountB2" class="amount-input" min="15" max="9900" step="0.01" value="15">
+              </div>
+              <p class="amount-hint">Min €15 · max €9,900 per transaction</p>
+            </div>
+            <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" onsubmit="return preparePayment('amountB2','payAmountB2', this)">
+              <input type="hidden" name="cmd" value="_donations">
+              <input type="hidden" name="business" value="jobcarmen@yahoo.com">
+              <input type="hidden" name="item_name" value="Donation for English in Chapters — B2 course (min €15)">
+              <input type="hidden" name="amount" id="payAmountB2" value="15.00">
+              <input type="hidden" name="currency_code" value="EUR">
+              <input type="hidden" name="no_shipping" value="1">
+              <input type="hidden" name="no_note" value="1">
+              <input type="hidden" name="landing_page" value="Billing">
+              <input type="hidden" name="rm" value="2">
+              <input type="hidden" name="return" value="https://REPLACE-WITH-YOUR-DOMAIN/thank-you-b2.html">
+              <input type="hidden" name="cancel_return" value="https://REPLACE-WITH-YOUR-DOMAIN/index.html#courses">
+              <button type="submit" class="btn-blue-gradient">💳 Pay by Card or PayPal</button>
+            </form>
+            <p class="donate-msg">No PayPal account needed — on the next page choose "Pay with Debit or Credit Card" to check out as a guest. After payment you'll be taken straight to the B2 download page.</p>
           </div>
         </div>
       </div>
     </div>
 
     <p style="text-align:center;margin-top:34px;color:var(--ink-soft);font-size:.9rem;">
-      Payments are handled securely by PayPal. After payment, you'll be able to save the course PDF from the confirmation/preview page — or contact Carmen directly and she'll send it to your email.
+      Payments are handled securely by PayPal — pay with a debit/credit card as a guest, no PayPal account required. After payment you'll be redirected straight to the download page for your course; if that doesn't happen, just contact Carmen and she'll send the PDF to your email.
     </p>
   </div>
 </section>
@@ -330,6 +385,27 @@
   document.getElementById('navToggle').addEventListener('click', function(){
     document.getElementById('navLinks').classList.toggle('open');
   });
+
+  // Validate the editable donation amount (min €15, max €9,900) and sync it
+  // into the hidden PayPal "amount" field right before the form submits.
+  function preparePayment(inputId, hiddenId, formEl){
+    var input = document.getElementById(inputId);
+    var hidden = document.getElementById(hiddenId);
+    var value = parseFloat(input.value);
+
+    if (isNaN(value) || value < 15) {
+      alert('Please enter an amount of at least €15.');
+      input.focus();
+      return false;
+    }
+    if (value > 9900) {
+      alert('The maximum amount per transaction is €9,900.');
+      input.focus();
+      return false;
+    }
+    hidden.value = value.toFixed(2);
+    return true;
+  }
 </script>
 </body>
 </html>
