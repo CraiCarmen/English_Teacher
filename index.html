@@ -118,6 +118,15 @@
     color:rgba(255,255,255,.92); font-size:.92rem; line-height:1.6;
   }
   .resume-badge-list li b{ color:#fff; }
+
+  /* ---- Added: side-by-side "Resume" and "What I can do for you" row ---- */
+  .about-grid{
+    display:grid; grid-template-columns:1fr; gap:32px;
+    margin-top:48px; align-items:start;
+  }
+  @media (min-width:800px){
+    .about-grid{ grid-template-columns:1fr 1fr; }
+  }
   .donate-block{ margin-top:16px; padding-top:16px; border-top:1px dashed rgba(0,0,0,.15); }
   .donate-msg{ font-size:.82rem; color:var(--ink-soft); margin-bottom:0; line-height:1.5; }
 
@@ -395,16 +404,16 @@
           </div>
         </div>
       </div>
+    </div>
 
-
-        <div id="about" class="resume-badge">
-          <h3><a class="badge" href="https://craicarmen.github.io/Cv_Crai_Carmen/" >Resume Crai Carmen</a></h3>
-          <div class="role">English Tutor for Professionals</div>
-          <ul class="resume-badge-list">
-            <li><b>MA</b>&nbsp;Applied Econometrics — Kingston University, London</li>
-            <li><b>DP</b>&nbsp;Economic Analysis — University of Kent, Canterbury</li>
-          </ul>
-        </div>
+    <div class="about-grid">
+      <div id="about" class="resume-badge">
+        <h3><a class="badge" href="https://craicarmen.github.io/Cv_Crai_Carmen/" >Resume Crai Carmen</a></h3>
+        <div class="role">English Tutor for Professionals</div>
+        <ul class="resume-badge-list">
+          <li><b>MA</b>&nbsp;Applied Econometrics — Kingston University, London</li>
+          <li><b>DP</b>&nbsp;Economic Analysis — University of Kent, Canterbury</li>
+        </ul>
       </div>
 
       <div>
