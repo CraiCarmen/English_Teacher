@@ -97,7 +97,7 @@
 
   /* ---- Added: blue gradient container around the résumé link ---- */
   .resume-badge{
-    display:inline-block; margin:6px 0 18px;
+    display:inline-block;
     background:linear-gradient(135deg,#1B4F91 0%,#0F3D73 45%,#041B36 100%);
     border-radius:12px; padding:18px 24px;
     box-shadow:0 4px 14px rgba(4,27,54,.45);
@@ -119,13 +119,18 @@
   }
   .resume-badge-list li b{ color:#fff; }
 
-  /* ---- Added: side-by-side "Resume" and "What I can do for you" row ---- */
-  .about-grid{
-    display:grid; grid-template-columns:1fr; gap:32px;
-    margin-top:48px; align-items:start;
+  /* ---- Added: "What I can do for you" merged inside the résumé container ---- */
+  .resume-badge{
+    display:block; max-width:640px; margin:6px 0 18px;
   }
-  @media (min-width:800px){
-    .about-grid{ grid-template-columns:1fr 1fr; }
+  .resume-badge-subhead{
+    color:#fff; margin:22px 0 14px; padding-top:18px;
+    border-top:1px solid rgba(255,255,255,.25);
+  }
+  .capability-list--onbrand h4{ color:#fff; }
+  .capability-list--onbrand p{ color:rgba(255,255,255,.85); }
+  .capability-list--onbrand .cap-mark{
+    background:rgba(255,255,255,.15); color:#fff;
   }
   .donate-block{ margin-top:16px; padding-top:16px; border-top:1px dashed rgba(0,0,0,.15); }
   .donate-msg{ font-size:.82rem; color:var(--ink-soft); margin-bottom:0; line-height:1.5; }
@@ -406,35 +411,31 @@
       </div>
     </div>
 
-    <div class="about-grid">
-      <div id="about" class="resume-badge">
-        <h3><a class="badge" href="https://craicarmen.github.io/Cv_Crai_Carmen/" >Resume Crai Carmen</a></h3>
-        <div class="role">English Tutor for Professionals</div>
-        <ul class="resume-badge-list">
-          <li><b>MA</b>&nbsp;Applied Econometrics — Kingston University, London</li>
-          <li><b>DP</b>&nbsp;Economic Analysis — University of Kent, Canterbury</li>
-        </ul>
-      </div>
+    <div id="about" class="resume-badge">
+      <h3><a class="badge" href="https://craicarmen.github.io/Cv_Crai_Carmen/" >Resume Crai Carmen</a></h3>
+      <div class="role">English Tutor for Professionals</div>
+      <ul class="resume-badge-list">
+        <li><b>MA</b>&nbsp;Applied Econometrics — Kingston University, London</li>
+        <li><b>DP</b>&nbsp;Economic Analysis — University of Kent, Canterbury</li>
+      </ul>
 
-      <div>
-        <h3 style="margin-bottom:1em;">What I can do for you</h3>
-        <ul class="capability-list">
-          <li>
-            <span class="cap-mark">P</span>
-            <div>
-              <h4>Business-focused English lessons</h4>
-              <p>Lessons tailored to real work situations such as: emails, meetings, reports, and interviews.</p>
-            </div>
-          </li>
-          <li>
-            <span class="cap-mark">S</span>
-            <div>
-              <h4>Simple, usable course material</h4>
-              <p>The A2 and B1/B2 grammar guides below turn dense grammar references into short chapters with clear examples. <br> Each chapter is built clearly and professionaly.</p>
-            </div>
-          </li>
-        </ul>
-      </div>
+      <h3 class="resume-badge-subhead">What I can do for you</h3>
+      <ul class="capability-list capability-list--onbrand">
+        <li>
+          <span class="cap-mark">P</span>
+          <div>
+            <h4>Business-focused English lessons</h4>
+            <p>Lessons tailored to real work situations such as: emails, meetings, reports, and interviews.</p>
+          </div>
+        </li>
+        <li>
+          <span class="cap-mark">S</span>
+          <div>
+            <h4>Simple, usable course material</h4>
+            <p>The A2 and B1/B2 grammar guides below turn dense grammar references into short chapters with clear examples. <br> Each chapter is built clearly and professionaly.</p>
+          </div>
+        </li>
+      </ul>
     </div>
   </div>
 </section>
