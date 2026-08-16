@@ -87,6 +87,13 @@
   .course-actions form{ margin:0; flex:1 1 200px; display:flex; }
   .course-actions a.btn-gradient-orange{ flex:1 1 200px; }
   .course-actions form .btn-gradient-orange{ flex:1; width:100%; }
+
+  /* ---- Added: align "Preview" buttons (and everything below) at the
+     same height across course cards, regardless of description length ---- */
+  .course-grid{ align-items:stretch; }
+  .course-card{ display:flex; flex-direction:column; }
+  .course-body{ display:flex; flex-direction:column; flex:1 1 auto; }
+  .course-price{ margin-top:auto; padding-top:16px; }
   .donate-block{ margin-top:16px; padding-top:16px; border-top:1px dashed rgba(0,0,0,.15); }
   .donate-msg{ font-size:.82rem; color:var(--ink-soft); margin-bottom:0; line-height:1.5; }
 
@@ -187,12 +194,12 @@
     <div class="reviews-score">
       <span class="stars">★★★★★</span>
       <!-- <p>Lessons rating 4.9 / 5</p> -->
-      <span style="opacity:.75;">· Lessons rating 4.9 / 5 · 17 written reviews · 645 lessons taught ·</span>
+      <span id="reviewsStatsLine" style="opacity:.75;">· Lessons rating 4.9 / 5 · 17 written reviews · 645 lessons taught ·</span>
       <span class="stars">★★★★★</span>
     </div>
   </div>
   <div class="reviews-marquee">
-    <div class="reviews-track">
+    <div class="reviews-track" id="reviewsTrack">
       <div class="review-card">
         <span class="review-stars">★★★★★</span>
         <p>Carmen made a real difference to both my English and my confidence to speak it. Every lesson feels relaxed, interactive and shaped around what I actually need, so the time flies by.</p>
@@ -256,7 +263,7 @@
       </div>
     </div>
   </div>
-  <p class="reviews-source">Reviews collected from my Preply profile · <a href="https://preply.com/en/tutor/5963700" target="_blank" rel="noopener">See all 17 reviews on Preply →</a></p>
+  <p class="reviews-source" id="reviewsSourceLine">Reviews collected from my Preply profile · <a href="https://preply.com/en/tutor/5963700" target="_blank" rel="noopener">See all 17 reviews on Preply →</a></p>
 </section>
 
 <section class="tint" id="courses">
@@ -264,7 +271,7 @@
     <div class="section-head">
       <span class="eyebrow">Self-study courses</span>
       <h2>English in Chapters — grammar made short and clear</h2>
-      <p>Twelve chapters, three examples per topic, and an appendix of further reading for every chapter. Pick the level that matches you — or get both.</p>
+      <p>Sixteen chapters and an appendix of further reading for every chapter. Pick the level that matches you — or get both.</p>
     </div>
 
     <div class="course-grid">
@@ -361,7 +368,7 @@
     </div>
 
     <p style="text-align:center;margin-top:34px;color:var(--ink-soft);font-size:.9rem;">
-     Otherwise, just simply contact me and I will send you the PDF over email.
+     Otherwise, simply contact me and I will send you the PDF over email.
     </p>
   </div>
 </section>
@@ -512,6 +519,62 @@
     hidden.value = value.toFixed(2);
     return true;
   }
+
+  // ---- Added: load the latest Preply reviews (refreshed automatically by
+  // a GitHub Action) and rebuild the "What students say" strip from them.
+  // If the fetch fails for any reason, the hand-written review cards
+  // already in the HTML stay exactly as they are — this is a progressive
+  // enhancement, not a requirement for the page to work.
+  (function loadReviews(){
+    fetch('assets/data/reviews.json', { cache: 'no-store' })
+      .then(function(res){ return res.ok ? res.json() : Promise.reject(); })
+      .then(function(data){
+        if (!data || !Array.isArray(data.reviews) || data.reviews.length === 0) return;
+
+        var track = document.getElementById('reviewsTrack');
+        if (!track) return;
+
+        function starString(rating){
+          var n = Math.max(1, Math.min(5, Math.round(rating || 5)));
+          return '★★★★★☆☆☆☆☆'.slice(5 - n, 10 - n);
+        }
+
+        function cardHTML(r, hidden){
+          var name = (r.name || '').replace(/</g, '&lt;');
+          var text = (r.text || '').replace(/</g, '&lt;');
+          var date = (r.date || '').replace(/</g, '&lt;');
+          return (
+            '<div class="review-card"' + (hidden ? ' aria-hidden="true"' : '') + '>' +
+              '<span class="review-stars">' + starString(r.rating) + '</span>' +
+              '<p>' + text + '</p>' +
+              '<div class="review-who"><span>' + name + '</span><span>' + date + '</span></div>' +
+            '</div>'
+          );
+        }
+
+        // Render the set once, then duplicate it (aria-hidden) so the
+        // existing CSS marquee animation keeps looping seamlessly.
+        var visible = data.reviews.map(function(r){ return cardHTML(r, false); }).join('');
+        var duplicate = data.reviews.map(function(r){ return cardHTML(r, true); }).join('');
+        track.innerHTML = visible + duplicate;
+
+        var statsLine = document.getElementById('reviewsStatsLine');
+        if (statsLine && (data.average_rating || data.review_count || data.lessons_taught)) {
+          var parts = [];
+          if (data.average_rating) parts.push('Lessons rating ' + data.average_rating + ' / 5');
+          if (data.review_count) parts.push(data.review_count + ' written reviews');
+          if (data.lessons_taught) parts.push(data.lessons_taught + ' lessons taught');
+          statsLine.textContent = '· ' + parts.join(' · ') + ' ·';
+        }
+
+        var sourceLine = document.getElementById('reviewsSourceLine');
+        if (sourceLine && data.review_count) {
+          var link = sourceLine.querySelector('a');
+          if (link) link.textContent = 'See all ' + data.review_count + ' reviews on Preply →';
+        }
+      })
+      .catch(function(){ /* keep the static fallback cards already in the HTML */ });
+  })();
 </script>
 </body>
 </html>
