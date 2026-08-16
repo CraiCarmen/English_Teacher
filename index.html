@@ -94,6 +94,30 @@
   .course-card{ display:flex; flex-direction:column; }
   .course-body{ display:flex; flex-direction:column; flex:1 1 auto; }
   .course-price{ margin-top:auto; padding-top:16px; }
+
+  /* ---- Added: blue gradient container around the résumé link ---- */
+  .resume-badge{
+    display:inline-block; margin:6px 0 18px;
+    background:linear-gradient(135deg,#1B4F91 0%,#0F3D73 45%,#041B36 100%);
+    border-radius:12px; padding:18px 24px;
+    box-shadow:0 4px 14px rgba(4,27,54,.45);
+  }
+  .resume-badge a.badge{
+    color:#fff !important; font-weight:700; font-size:1.15rem;
+    text-decoration:none; background:none !important; padding:0 !important;
+  }
+  .resume-badge a.badge:hover{ text-decoration:underline; }
+  .resume-badge .role{
+    color:rgba(255,255,255,.85); margin-top:4px; font-size:.95rem;
+  }
+  .resume-badge-list{
+    list-style:none; margin:14px 0 0; padding:12px 0 0;
+    border-top:1px solid rgba(255,255,255,.25);
+  }
+  .resume-badge-list li{
+    color:rgba(255,255,255,.92); font-size:.92rem; line-height:1.6;
+  }
+  .resume-badge-list li b{ color:#fff; }
   .donate-block{ margin-top:16px; padding-top:16px; border-top:1px dashed rgba(0,0,0,.15); }
   .donate-msg{ font-size:.82rem; color:var(--ink-soft); margin-bottom:0; line-height:1.5; }
 
@@ -326,11 +350,11 @@
         </div>
       </div>
 
-            <!-- A2 course -->
+            <!-- B2 course -->
       <div class="course-card">
-        <div class="course-band"><div class="course-level">A2</div></div>
+        <div class="course-band"><div class="course-level">B1/B2</div></div>
         <div class="course-body">
-          <h3>English in Chapters — B2</h3>
+          <h3>English in Chapters — B1/B2</h3>
           <div class="sub">Upper-Intermediate</div>
           <p>I will enable you to speak confidently and professionally. Also, I will only present to you the revelant tenses including perfect and passive forms, comparisons, linking words and business vocabulary.</p>
           <ul class="course-feats">
@@ -373,12 +397,14 @@
       </div>
 
 
-        <h3><a class="badge" href="https://craicarmen.github.io/Cv_Crai_Carmen/" >Resume Crai Carmen</a></h3>
-        <br><div class="role">English Tutor for Professionals</div>
-        <ul>
-          <li><b>MA</b>&nbsp;Applied Econometrics — Kingston University, London</li>
-          <li><b>DP</b>&nbsp;Economic Analysis — University of Kent, Canterbury</li>
-        </ul>
+        <div class="resume-badge">
+          <h3><a class="badge" href="https://craicarmen.github.io/Cv_Crai_Carmen/" >Resume Crai Carmen</a></h3>
+          <div class="role">English Tutor for Professionals</div>
+          <ul class="resume-badge-list">
+            <li><b>MA</b>&nbsp;Applied Econometrics — Kingston University, London</li>
+            <li><b>DP</b>&nbsp;Economic Analysis — University of Kent, Canterbury</li>
+          </ul>
+        </div>
       </div>
 
       <div>
